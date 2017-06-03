@@ -10,7 +10,7 @@
 template <typename K, size_t tableSize>
 struct HashCode {
     K operator()(const K &key) const {
-        return reinterpret_cast<K>(key) % tableSize;
+        return (K) key % tableSize;
     }
 };
 
