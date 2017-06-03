@@ -9,8 +9,8 @@
 
 template <typename K, size_t tableSize>
 struct HashCode {
-    unsigned long operator()(const K &key) const {
-        return reinterpret_cast<unsigned long>(key) % tableSize;
+    K operator()(const K &key) const {
+        return reinterpret_cast<K>(key) % tableSize;
     }
 };
 
