@@ -3,7 +3,7 @@ project(hashtablecxx)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES include/hashtablecxx.h source/hashtablecxx.cpp)
+set(SOURCE_FILES include/hashtablecxx.h source/hashtablecxx.cpp include/hashcode.h)
 add_library(hashtablecxx ${SOURCE_FILES})
 
 enable_testing()
