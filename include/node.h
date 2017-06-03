@@ -5,8 +5,6 @@
 #ifndef HASHTABLECXX_NODE_H
 #define HASHTABLECXX_NODE_H
 
-#include <nameser.h>
-
 template <typename K, typename V>
 class Node {
 
