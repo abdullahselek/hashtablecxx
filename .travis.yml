@@ -1,0 +1,19 @@
+language: cpp
+
+# Need these for a more recent CMake on Linux
+sudo: required
+dist: trusty
+
+os:
+  - osx
+  - linux
+
+before_script:
+  - cmake .
+
+script:
+  - cmake --build .
+
+after_script:
+ - cd test
+ - ./tests
