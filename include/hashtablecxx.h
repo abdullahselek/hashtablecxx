@@ -16,7 +16,7 @@ public:
     }
 
     ~HashTable() {
-
+        table.clear();
     }
 
     void put(const K key, const V value) {
