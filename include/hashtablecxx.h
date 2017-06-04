@@ -5,8 +5,6 @@
 #ifndef HASHTABLECXX_HASHTABLECXX_H
 #define HASHTABLECXX_HASHTABLECXX_H
 
-#include <cstdio>
-#include "hashcode.h"
 #include "node.h"
 
 template <typename K, typename V>
