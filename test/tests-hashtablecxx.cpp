@@ -49,9 +49,38 @@ SCENARIO("HashTableTests") {
             hashTable.put(3, "three");
 
             THEN("Should return a valid node if there is matching key") {
-                REQUIRE(hashTable.search(2) != nullptr);
-                REQUIRE(hashTable.search(2)->getKey() == 2);
-                REQUIRE(hashTable.search(2)->getValue() == "two");
+                Node<int, std::string> *foundNode = hashTable.search(2);
+                REQUIRE(foundNode != nullptr);
+                REQUIRE(foundNode->getKey() == 2);
+                REQUIRE(foundNode->getValue() == "two");
+            }
+        }
+        WHEN("Hash table is empty remove function") {
+            THEN("Should return nullptr") {
+                REQUIRE(hashTable.remove(1) == nullptr);
+            }
+        }
+        WHEN("Hash table is not empty remove function") {
+            hashTable.put(0, "zero");
+            hashTable.put(2, "two");
+
+            THEN("Should return nullptr if there is not matching key") {
+                REQUIRE(hashTable.remove(1) == nullptr);
+            }
+        }
+        WHEN("Hash table is not empty remove function") {
+            hashTable.put(1, "one");
+            hashTable.put(2, "two");
+            hashTable.put(3, "three");
+
+            THEN("Should return a valid node if there is matching key") {
+                REQUIRE(hashTable.getTable().size() == 3);
+                Node<int, std::string> *removedNode = hashTable.remove(2);
+                REQUIRE(removedNode != nullptr);
+                REQUIRE(removedNode->getKey() == 2);
+                REQUIRE(removedNode->getValue() == "two");
+                REQUIRE(hashTable.getTable().size() == 2);
+                delete removedNode;
             }
         }
     }
