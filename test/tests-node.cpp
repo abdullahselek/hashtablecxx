@@ -14,7 +14,6 @@ SCENARIO("NodeTests") {
             THEN("Given values should match") {
                 REQUIRE(node.getKey() == 1);
                 REQUIRE(node.getValue() == 10);
-                REQUIRE(node.getNext() == nullptr);
             }
         }
         WHEN("Key set as 2 and value not changed") {
@@ -23,7 +22,6 @@ SCENARIO("NodeTests") {
             THEN("Just key should be updated") {
                 REQUIRE(node.getKey() == 2);
                 REQUIRE(node.getValue() == 10);
-                REQUIRE(node.getNext() == nullptr);
             }
         }
         WHEN("Value set as 20 and key not changed") {
@@ -32,7 +30,6 @@ SCENARIO("NodeTests") {
             THEN("Just key should be updated") {
                 REQUIRE(node.getKey() == 1);
                 REQUIRE(node.getValue() == 20);
-                REQUIRE(node.getNext() == nullptr);
             }
         }
         WHEN("Key set as 2 and value set as 20") {
@@ -42,19 +39,6 @@ SCENARIO("NodeTests") {
             THEN("Just key should be updated") {
                 REQUIRE(node.getKey() == 2);
                 REQUIRE(node.getValue() == 20);
-                REQUIRE(node.getNext() == nullptr);
-            }
-        }
-        WHEN("Key set as 2, value set as 20 and next node set with non-null pointer") {
-            node.setKey(2);
-            node.setValue(20);
-            Node<int, int> *next = new Node<int, int>(3, 30);
-            node.setNext(next);
-
-            THEN("Just key should be updated") {
-                REQUIRE(node.getKey() == 2);
-                REQUIRE(node.getValue() == 20);
-                REQUIRE(node.getNext() == next);
             }
         }
     }

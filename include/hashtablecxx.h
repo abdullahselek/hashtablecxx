@@ -30,7 +30,6 @@ public:
         }
 
         Node<K, V> *previous = table.at(size - 1);
-        previous->setNext(item);
         table.push_back(item);
     }
 

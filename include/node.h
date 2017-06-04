@@ -30,18 +30,9 @@ public:
         this->value = value;
     }
 
-    Node * getNext() {
-        return this->next;
-    }
-
-    void setNext(Node * next) {
-        this->next = next;
-    }
-
 private:
     K key;
     V value;
-    Node *next = nullptr;
     // disable copy & assignment
     Node(const Node &);
     Node & operator=(const Node &);
