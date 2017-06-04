@@ -30,6 +30,30 @@ SCENARIO("HashTableTests") {
                 REQUIRE(hashTable.getTable().size() == 3);
             }
         }
+        WHEN("Hash table is empty search function") {
+            THEN("Should return nullptr") {
+                REQUIRE(hashTable.search(1) == nullptr);
+            }
+        }
+        WHEN("Hash table is not empty search function") {
+            hashTable.put(0, "zero");
+            hashTable.put(2, "two");
+
+            THEN("Should return nullptr if there is not matching key") {
+                REQUIRE(hashTable.search(1) == nullptr);
+            }
+        }
+        WHEN("Hash table is not empty search function") {
+            hashTable.put(1, "one");
+            hashTable.put(2, "two");
+            hashTable.put(3, "three");
+
+            THEN("Should return a valid node if there is matching key") {
+                REQUIRE(hashTable.search(2) != nullptr);
+                REQUIRE(hashTable.search(2)->getKey() == 2);
+                REQUIRE(hashTable.search(2)->getValue() == "two");
+            }
+        }
     }
 
 }

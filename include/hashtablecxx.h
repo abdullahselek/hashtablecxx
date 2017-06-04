@@ -38,6 +38,17 @@ public:
         return table;
     };
 
+    Node<K, V> * search(const K key) {
+        typename std::vector<Node<K, V> *>::iterator it;
+        for (it = table.begin(); it != table.end(); ++it) {
+            Node<K, V> *node = *it;
+            if (node->getKey() == key) {
+                return node;
+            }
+        }
+        return nullptr;
+    };
+
 private:
     std::vector<Node<K, V> *> table;
 
