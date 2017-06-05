@@ -18,7 +18,11 @@ public:
     }
 
     ~HashTable() {
-
+        for (int i = 0; i < tableSize; ++i) {
+            Node<K, V> *node = table[i];
+            delete node;
+            table[i] = NULL;
+        }
     }
 
     void put(const K key, const V value) {
