@@ -2,23 +2,24 @@
 // Created by Abdullah Selek on 03/06/2017.
 //
 
+#include <iostream>
 #include "catch.hpp"
 #include "../include/hashtablecxx.h"
 
 SCENARIO("HashTableTests") {
 
     GIVEN("Create a hash table with key type int and value type string") {
-        HashTable<int, std::string> hashTable;
+        HashTable<int, std::string, 4> hashTable;
         WHEN("HashTable instantiate properly") {
-            THEN("Table size should be 0") {
-                REQUIRE(hashTable.getTable().size() == 0);
+            THEN("Table should not be nullptr") {
+                REQUIRE(hashTable.getTable() != nullptr);
             }
         }
         WHEN("Put a new node") {
             hashTable.put(1, "one");
 
             THEN("Table size should increase by one") {
-                REQUIRE(hashTable.getTable().size() == 1);
+                REQUIRE(hashTable.nodeCount == 1);
             }
         }
         WHEN("Put multiple nodes") {
@@ -27,7 +28,7 @@ SCENARIO("HashTableTests") {
             hashTable.put(3, "three");
 
             THEN("Table size should be 3") {
-                REQUIRE(hashTable.getTable().size() == 3);
+                REQUIRE(hashTable.nodeCount == 3);
             }
         }
         WHEN("Hash table is empty search function") {
@@ -74,12 +75,12 @@ SCENARIO("HashTableTests") {
             hashTable.put(3, "three");
 
             THEN("Should return a valid node if there is matching key") {
-                REQUIRE(hashTable.getTable().size() == 3);
+                REQUIRE(hashTable.nodeCount == 3);
                 Node<int, std::string> *removedNode = hashTable.remove(2);
                 REQUIRE(removedNode != nullptr);
                 REQUIRE(removedNode->getKey() == 2);
                 REQUIRE(removedNode->getValue() == "two");
-                REQUIRE(hashTable.getTable().size() == 2);
+                REQUIRE(hashTable.nodeCount == 2);
                 delete removedNode;
             }
         }

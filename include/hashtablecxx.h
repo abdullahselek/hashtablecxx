@@ -7,52 +7,79 @@
 
 #include "node.h"
 
-template <typename K, typename V>
+template <typename K, typename V, size_t tableSize>
 class HashTable {
 
 public:
-    HashTable() {
+    int nodeCount = 0;
 
+    HashTable() {
+        this->dummyNode = new Node<K, V>(K{}, V{});
     }
 
     ~HashTable() {
-        table.clear();
+
     }
 
     void put(const K key, const V value) {
         Node<K, V> *item = new Node<K, V>(key, value);
-        table.push_back(item);
+        int hashIndex = hashCode(key);
+        // move in array until an empty or deleted cell
+        while (table[hashIndex] != nullptr && table[hashIndex]->getKey() != K{}) {
+            ++hashIndex;
+            hashIndex %= tableSize;
+        }
+        table[hashIndex] = item;
+        nodeCount++;
     }
 
-    std::vector<Node<K, V> *> getTable() {
-        return table;
+    Node<K, V> * getTable() {
+        return (Node<K, V> *) table;
     };
 
     Node<K, V> * search(const K key) {
-        typename std::vector<Node<K, V> *>::iterator it;
-        for (it = table.begin(); it != table.end(); ++it) {
-            Node<K, V> *node = *it;
-            if (node->getKey() == key) {
-                return node;
+        int hashIndex = hashCode(key);
+        // move in array until an empty
+        while (table[hashIndex] != nullptr) {
+            if (table[hashIndex]->getKey() == key) {
+                return table[hashIndex];
             }
+            // go to next cell
+            ++hashIndex;
+            // wrap around the table
+            hashIndex %= tableSize;
         }
         return nullptr;
     };
 
     Node<K, V> * remove(const K key) {
-        typename std::vector<Node<K, V> *>::iterator it;
-        for (it = table.begin(); it != table.end(); ++it) {
-            Node<K, V> *node = *it;
-            if (node->getKey() == key) {
-                table.erase(it);
-                return node;
+        int hashIndex = hashCode(key);
+        // move in array until an empty
+        while(table[hashIndex] != nullptr) {
+
+            if (table[hashIndex]->getKey() == key) {
+                Node<K, V> *temp = table[hashIndex];
+
+                // assign a dummy item at deleted position
+                table[hashIndex] = this->dummyNode;
+                nodeCount--;
+                return temp;
             }
+            // go to next cell
+            ++hashIndex;
+            // wrap around the table
+            hashIndex %= tableSize;
         }
         return nullptr;
     };
 
 private:
-    std::vector<Node<K, V> *> table;
+    Node<K, V> *table[tableSize]{};
+    Node<K, V> *dummyNode;
+
+    int hashCode(int key) {
+        return key % tableSize;
+    }
 
 };
 
